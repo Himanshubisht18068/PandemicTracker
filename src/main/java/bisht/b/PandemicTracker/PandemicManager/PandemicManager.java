@@ -2,8 +2,11 @@ package bisht.b.PandemicTracker.PandemicManager;
 
 import bisht.b.PandemicTracker.CustomExceptions.PatientExistsWithThisDisease;
 import bisht.b.PandemicTracker.CustomExceptions.PatientNotFound;
+import bisht.b.PandemicTracker.DAO.RegionInfo;
 import bisht.b.PandemicTracker.DataBaseManager.DataBaseManager;
 import bisht.b.PandemicTracker.DataBaseManager.IDataBaseManager;
+
+import java.util.List;
 
 public class PandemicManager {
 
@@ -47,7 +50,12 @@ public class PandemicManager {
             throw new PatientNotFound(String.format("\nPatient %s with disease %s does not Exists.\n", patientID, diseaseName));
         }
 
-        this.world.cured(diseaseName, patientID);
+        RegionInfo region = this.dataBaseManager.getPatientDetails(patientID);
+
+        this.world.cured(diseaseName, region.getCountryName(), region.getStateName());
+
+        // Patient is cured, so update his diseases list
+        this.dataBaseManager.patientCured(patientID, diseaseName);
 
     }
 
@@ -57,7 +65,30 @@ public class PandemicManager {
             throw new PatientNotFound(String.format("\nPatient %s with disease %s does not Exists.\n", patientID, diseaseName));
         }
 
-        this.world.fatal(diseaseName, patientID);
+
+        RegionInfo region = this.dataBaseManager.getPatientDetails(patientID);
+
+        List<String> diseases = this.dataBaseManager.getPatientDiseasesList(patientID);
+        for (String disease : diseases) {
+
+            if (disease.equals(diseaseName)) {
+
+                this.world.fatal(disease, region.getCountryName(), region.getStateName());
+
+            } else {
+
+                this.world.inActive(disease, region.getCountryName(), region.getStateName());
+
+            }
+
+        }
+
+        //Patient is dead, removed all this details
+        this.dataBaseManager.deletePatientDetails(patientID);
+
+
+
+
 
     }
 

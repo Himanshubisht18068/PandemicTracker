@@ -25,45 +25,22 @@ public class World implements IWorld {
     }
 
     @Override
-    public void cured(String diseaseName, String patientID) {
+    public void cured(String diseaseName, String countryName, String stateName) {
 
         this.dataBaseManager.curedWorld(diseaseName);
 
-        RegionInfo region = this.dataBaseManager.getPatientDetails(patientID);
-        this.country.cured(diseaseName, region.getCountryName(), region.getStateName());
-
-        // Patient is cured, so update his diseases list
-        this.dataBaseManager.patientCured(patientID, diseaseName);
+        this.country.fatal(diseaseName, countryName, stateName);
 
     }
 
     @Override
-    public void fatal(String diseaseName, String patientID) {
+    public void fatal(String diseaseName, String countryName, String stateName) {
+
+        this.dataBaseManager.fatalWorld(diseaseName);
+
+        this.country.fatal(diseaseName, countryName, stateName);
 
 
-        RegionInfo region = this.dataBaseManager.getPatientDetails(patientID);
-
-        List<String> diseases = this.dataBaseManager.getPatientDiseasesList(patientID);
-        for (String disease : diseases) {
-
-            if (disease.equals(diseaseName)) {
-
-                this.dataBaseManager.fatalWorld(diseaseName);
-
-                this.country.fatal(disease, region.getCountryName(), region.getStateName());
-
-            } else {
-
-                this.dataBaseManager.inActiveWorld(disease);
-
-                this.country.inActive(disease, region.getCountryName(), region.getStateName());
-
-            }
-
-        }
-
-        //Patient is dead, removed all this details
-        this.dataBaseManager.deletePatientDetails(patientID);
     }
 
     @Override
@@ -77,6 +54,15 @@ public class World implements IWorld {
     public String showWorldSummaryDiseasesBreakup() {
 
         return this.dataBaseManager.getWorldSummaryDiseasesBreakup();
+
+    }
+
+    @Override
+    public void inActive(String diseaseName, String countryName, String stateName) {
+
+        this.dataBaseManager.inActiveWorld(diseaseName);
+
+        this.country.inActive(diseaseName, countryName, stateName);
 
     }
 }
