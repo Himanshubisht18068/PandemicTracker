@@ -1,6 +1,6 @@
 package bisht.b.PandemicTracker.DAO;
 
-public class RegionInfo implements IRegionInfo{
+public class RegionInfo {
 
     private String countryName;
     private String stateName;

@@ -1,11 +1,11 @@
 package bisht.b.PandemicTracker.DataBase;
 
-import bisht.b.PandemicTracker.DAO.IRegionInfo;
 import bisht.b.PandemicTracker.DAO.IStats;
 import bisht.b.PandemicTracker.DAO.RegionInfo;
 import bisht.b.PandemicTracker.DAO.Stats;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +18,7 @@ public class InMemoryDataBase implements IDataBase {
     private Map<String, IStats> mTableCountryDiseaseStats;
     private Map<String, IStats> mTableStateDiseaseStats;
 
-    private Map<String, IRegionInfo> mPatientAddress;
+    private Map<String, RegionInfo> mPatientAddress;
     private Map<String, List<String>> mPatientDiseaseList;
 
 
@@ -87,11 +87,11 @@ public class InMemoryDataBase implements IDataBase {
 
         StringBuilder output = new StringBuilder();
 
-        for(Map.Entry<String, IStats> entrySet: this.mTableStateDiseaseStats.entrySet()){
+        for (Map.Entry<String, IStats> entrySet : this.mTableStateDiseaseStats.entrySet()) {
 
             String[] str = entrySet.getKey().split("__");
 
-            if(str[0].equals(diseaseName) && str[1].equals(countryName)){
+            if (str[0].equals(diseaseName) && str[1].equals(countryName)) {
 
                 output.append(entrySet.getValue().getStats(str[2]));
 
@@ -116,11 +116,11 @@ public class InMemoryDataBase implements IDataBase {
 
         StringBuilder output = new StringBuilder();
 
-        for(Map.Entry<String, IStats> entrySet: this.mTableCountryDiseaseStats.entrySet()){
+        for (Map.Entry<String, IStats> entrySet : this.mTableCountryDiseaseStats.entrySet()) {
 
             String[] str = entrySet.getKey().split("__");
 
-            if(str[0].equals(diseaseName)){
+            if (str[0].equals(diseaseName)) {
 
                 output.append(entrySet.getValue().getStats(str[1]));
 
@@ -168,7 +168,7 @@ public class InMemoryDataBase implements IDataBase {
 
         StringBuilder output = new StringBuilder();
 
-        for(Map.Entry<String, IStats> entrySet: this.mTableWorldDiseaseStats.entrySet()){
+        for (Map.Entry<String, IStats> entrySet : this.mTableWorldDiseaseStats.entrySet()) {
 
             output.append(entrySet.getValue().getStats(entrySet.getKey()));
 
@@ -185,10 +185,6 @@ public class InMemoryDataBase implements IDataBase {
 
     }
 
-    @Override
-    public void deletePatientDetails(String patientID) {
-
-    }
 
     @Override
     public void inActiveWorld(String diseaseName) {
@@ -201,27 +197,12 @@ public class InMemoryDataBase implements IDataBase {
     }
 
     @Override
-    public List<String> getPatientDiseasesList(String patientID) {
-        return null;
-    }
-
-    @Override
     public void fatalWorld(String diseaseName) {
 
         this.worldStats.fatal();
 
         this.mTableWorldDiseaseStats.get(diseaseName).fatal();
 
-    }
-
-    @Override
-    public void patientCured(String patientID, String diseaseName) {
-
-    }
-
-    @Override
-    public RegionInfo getPatientDetails(String patientID) {
-        return null;
     }
 
     @Override
@@ -247,12 +228,52 @@ public class InMemoryDataBase implements IDataBase {
     }
 
     @Override
+    public void deletePatientDetails(String patientID) {
+
+    }
+
+    @Override
+    public List<String> getPatientDiseasesList(String patientID) {
+        return null;
+    }
+
+    @Override
+    public void patientCured(String patientID, String diseaseName) {
+
+    }
+
+    @Override
+    public RegionInfo getPatientDetails(String patientID) {
+
+        return this.mPatientAddress.get(patientID);
+
+    }
+
+    @Override
     public void savePatientDetails(String patientID, String diseaseName, String countryName, String stateName) {
+
+        this.mPatientAddress.put(patientID, new RegionInfo(countryName, stateName));
+
+        if (!this.mPatientDiseaseList.containsKey(patientID)) {
+
+            this.mPatientDiseaseList.put(patientID, new LinkedList<String>());
+
+        }
+
+        this.mPatientDiseaseList.get(patientID).add(diseaseName);
 
     }
 
     @Override
     public boolean patientExists(String patientID, String diseaseName) {
-        return false;
+
+        if (!this.mPatientDiseaseList.containsKey(patientID)) {
+
+            return false;
+
+        }
+
+        return this.mPatientDiseaseList.get(patientID).contains(diseaseName);
+
     }
 }
