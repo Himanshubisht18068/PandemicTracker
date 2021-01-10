@@ -3,15 +3,18 @@ package bisht.b.PandemicTracker.DataBase;
 import bisht.b.PandemicTracker.DAO.IStats;
 import bisht.b.PandemicTracker.DAO.RegionInfo;
 import bisht.b.PandemicTracker.DAO.Stats;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+@Component
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class InMemoryDataBase implements IDataBase {
-
-    static InMemoryDataBase instance = null;
 
     private final IStats worldStats;
     private final Map<String, IStats> mTableWorldDiseaseStats;
@@ -22,7 +25,7 @@ public class InMemoryDataBase implements IDataBase {
     private final Map<String, List<String>> mPatientDiseaseList;
 
 
-    private InMemoryDataBase() {
+    public InMemoryDataBase() {
 
         this.worldStats = new Stats();
         this.mTableWorldDiseaseStats = new HashMap<>();
@@ -32,14 +35,6 @@ public class InMemoryDataBase implements IDataBase {
         this.mPatientAddress = new HashMap<>();
         this.mPatientDiseaseList = new HashMap<>();
 
-    }
-
-    public static InMemoryDataBase getInstance() {
-
-        if (instance == null) {
-            instance = new InMemoryDataBase();
-        }
-        return instance;
     }
 
     @Override

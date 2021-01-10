@@ -2,8 +2,8 @@ package bisht.b.PandemicTracker.DAO;
 
 public class RegionInfo {
 
-    private String countryName;
-    private String stateName;
+    private final String countryName;
+    private final String stateName;
 
     public RegionInfo(String countryName, String stateName) {
         this.countryName = countryName;

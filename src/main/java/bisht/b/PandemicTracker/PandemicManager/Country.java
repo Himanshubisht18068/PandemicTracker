@@ -1,16 +1,22 @@
 package bisht.b.PandemicTracker.PandemicManager;
 
-import bisht.b.PandemicTracker.DataBaseManager.DataBaseManager;
 import bisht.b.PandemicTracker.DataBaseManager.IDataBaseManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class Country implements ICountry {
 
-    private IState state;
-    private IDataBaseManager dataBaseManager;
+    private final IState state;
+    private final IDataBaseManager dataBaseManager;
 
-    public Country(IState state) {
+    @Autowired
+    public Country(IState state, IDataBaseManager dataBaseManager) {
         this.state = state;
-        this.dataBaseManager = new DataBaseManager();
+        this.dataBaseManager = dataBaseManager;
     }
 
     @Override

@@ -3,26 +3,30 @@ package bisht.b.PandemicTracker.PandemicManager;
 import bisht.b.PandemicTracker.CustomExceptions.PatientExistsWithThisDisease;
 import bisht.b.PandemicTracker.CustomExceptions.PatientNotFound;
 import bisht.b.PandemicTracker.DAO.RegionInfo;
-import bisht.b.PandemicTracker.DataBaseManager.DataBaseManager;
 import bisht.b.PandemicTracker.DataBaseManager.IDataBaseManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class PandemicManager {
 
-    private IWorld world;
-    private ICountry country;
-    private IState state;
+    private final IWorld world;
+    private final ICountry country;
+    private final IState state;
 
-    private IDataBaseManager dataBaseManager;
+    private final IDataBaseManager dataBaseManager;
 
-
-    public PandemicManager() {
-        this.state = new State();
-        this.country = new Country(this.state);
-        this.world = new World(this.country);
-
-        this.dataBaseManager = new DataBaseManager();
+    @Autowired
+    public PandemicManager(IWorld world, ICountry country, IState state, IDataBaseManager dataBaseManager) {
+        this.world = world;
+        this.country = country;
+        this.state = state;
+        this.dataBaseManager = dataBaseManager;
     }
 
     public void report(String diseaseName, String patientID, String countryName, String stateName, String cityName) throws PatientExistsWithThisDisease {
@@ -106,7 +110,7 @@ public class PandemicManager {
 
     public String showCountryBreakup(String diseaseName) {
 
-        System.out.println(String.format("showCountryBreakup(%s) => ",diseaseName));
+        System.out.printf("showCountryBreakup(%s) => %n", diseaseName);
 
         return this.country.showCountryBreakup(diseaseName);
 
@@ -114,7 +118,7 @@ public class PandemicManager {
 
     public String showStateBreakup(String diseaseName, String countryName) {
 
-        System.out.println(String.format("showStateBreakup(%s, %s) => ",diseaseName, countryName));
+        System.out.printf("showStateBreakup(%s, %s) => %n", diseaseName, countryName);
 
         return this.state.showStateBreakup(diseaseName, countryName);
 

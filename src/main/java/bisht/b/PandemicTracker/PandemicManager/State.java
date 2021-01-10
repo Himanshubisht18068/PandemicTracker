@@ -1,15 +1,21 @@
 package bisht.b.PandemicTracker.PandemicManager;
 
-import bisht.b.PandemicTracker.DataBaseManager.DataBaseManager;
 import bisht.b.PandemicTracker.DataBaseManager.IDataBaseManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-public class State implements IState{
+@Component
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class State implements IState {
 
-    private IDataBaseManager dataBaseManager;
+    private final IDataBaseManager dataBaseManager;
 
-    public State(){
+    @Autowired
+    public State(IDataBaseManager dataBaseManager) {
 
-        this.dataBaseManager = new DataBaseManager();
+        this.dataBaseManager = dataBaseManager;
 
     }
 

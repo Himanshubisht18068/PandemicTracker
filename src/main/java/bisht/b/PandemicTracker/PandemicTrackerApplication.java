@@ -4,52 +4,55 @@ import bisht.b.PandemicTracker.CustomExceptions.PatientNotFound;
 import bisht.b.PandemicTracker.PandemicManager.PandemicManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 public class PandemicTrackerApplication {
 
-	public static void main(String[] args) {
+    public static ApplicationContext applicationContext;
 
-//		SpringApplication.run(PandemicTrackerApplication.class, args);
+    public static void main(String[] args) {
 
-		System.out.println("Pandemic Tracker...");
+        applicationContext = SpringApplication.run(PandemicTrackerApplication.class, args);
 
-		PandemicManager pandemicManager = new PandemicManager();
+        System.out.println("Pandemic Tracker...");
 
-		pandemicManager.report("COVID-19", "P1", "China", "Hubei", "Wuhan" );
-		pandemicManager.report("COVID-19", "P2", "China", "Hubei", "Wuhan");
-		pandemicManager.report("COVID-19", "P3", "China", "Jiangsu", "Shanghai");
-		pandemicManager.report("COVID-19", "P4", "India", "Uttar Pradesh", "Agra");
-		pandemicManager.report("COVID-19", "P5", "India", "Uttar Pradesh", "Varanasi");
-		pandemicManager.report("COVID-19", "P6", "India", "Karnataka", "Bangalore");
-		pandemicManager.report("COVID-19", "P7", "India", "Karnataka", "Bangalore");
-		pandemicManager.report("COVID-19", "P8", "India", "Karnataka", "Bangalore");
-		pandemicManager.report("Spanish Flu", "P9", "USA", "California", "Los Angeles");
-		pandemicManager.report("Spanish Flu", "P10", "USA", "California", "San-francisco");
+        PandemicManager pandemicManager = applicationContext.getBean(PandemicManager.class);
 
-		System.out.println(pandemicManager.showWorldSummary());
+        pandemicManager.report("COVID-19", "P1", "China", "Hubei", "Wuhan");
+        pandemicManager.report("COVID-19", "P2", "China", "Hubei", "Wuhan");
+        pandemicManager.report("COVID-19", "P3", "China", "Jiangsu", "Shanghai");
+        pandemicManager.report("COVID-19", "P4", "India", "Uttar Pradesh", "Agra");
+        pandemicManager.report("COVID-19", "P5", "India", "Uttar Pradesh", "Varanasi");
+        pandemicManager.report("COVID-19", "P6", "India", "Karnataka", "Bangalore");
+        pandemicManager.report("COVID-19", "P7", "India", "Karnataka", "Bangalore");
+        pandemicManager.report("COVID-19", "P8", "India", "Karnataka", "Bangalore");
+        pandemicManager.report("Spanish Flu", "P9", "USA", "California", "Los Angeles");
+        pandemicManager.report("Spanish Flu", "P10", "USA", "California", "San-francisco");
 
-		System.out.println((pandemicManager.showWorldSummaryDiseasesBreakup()));
+        System.out.println(pandemicManager.showWorldSummary());
 
-		System.out.println((pandemicManager.showCountryBreakup("COVID-19")));
-		System.out.println((pandemicManager.showCountryBreakup("Spanish Flu")));
+        System.out.println((pandemicManager.showWorldSummaryDiseasesBreakup()));
 
-		pandemicManager.fatal("COVID-19", "P1");
+        System.out.println((pandemicManager.showCountryBreakup("COVID-19")));
+        System.out.println((pandemicManager.showCountryBreakup("Spanish Flu")));
 
-
-		try{
-			pandemicManager.fatal("COVID-19", "P1");
-		}
-		catch (PatientNotFound e){
-
-			System.out.println(e.getMessage());
-
-		}
-
-		System.out.println(pandemicManager.showWorldSummaryDiseasesBreakup());
+        pandemicManager.fatal("COVID-19", "P1");
 
 
+        try {
+            pandemicManager.fatal("COVID-19", "P1");
+        } catch (PatientNotFound e) {
 
-	}
+            System.out.println(e.getMessage());
+
+        }
+
+        System.out.println(pandemicManager.showWorldSummaryDiseasesBreakup());
+
+        System.out.println(pandemicManager.showStateBreakup("COVID-19", "India"));
+
+
+    }
 
 }

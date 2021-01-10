@@ -2,16 +2,22 @@ package bisht.b.PandemicTracker.DataBaseManager;
 
 import bisht.b.PandemicTracker.DAO.RegionInfo;
 import bisht.b.PandemicTracker.DataBase.IDataBase;
-import bisht.b.PandemicTracker.DataBase.InMemoryDataBase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class DataBaseManager implements IDataBaseManager {
 
-    private IDataBase inMemory;
+    private final IDataBase inMemory;
 
-    public DataBaseManager() {
-        this.inMemory = InMemoryDataBase.getInstance();
+    @Autowired
+    public DataBaseManager(IDataBase inMemory) {
+        this.inMemory = inMemory;
     }
 
     @Override
