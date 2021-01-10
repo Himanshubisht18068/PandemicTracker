@@ -1,6 +1,7 @@
 package bisht.b.PandemicTracker.PandemicManager;
 
 import bisht.b.PandemicTracker.CustomExceptions.PatientExistsWithThisDisease;
+import bisht.b.PandemicTracker.CustomExceptions.PatientNotFound;
 import bisht.b.PandemicTracker.DataBaseManager.DataBaseManager;
 import bisht.b.PandemicTracker.DataBaseManager.IDataBaseManager;
 
@@ -40,35 +41,47 @@ public class PandemicManager {
 
     }
 
-    public void cured(String diseaseName, String patientID) {
+    public void cured(String diseaseName, String patientID) throws PatientNotFound {
+
+        if(!this.dataBaseManager.patientExists(patientID, diseaseName)){
+            throw new PatientNotFound(String.format("\nPatient %s with disease %s does not Exists.\n", patientID, diseaseName));
+        }
+
+        this.world.cured(diseaseName, patientID);
 
     }
 
     public void fatal(String diseaseName, String patientID) {
 
+        if(!this.dataBaseManager.patientExists(patientID, diseaseName)){
+            throw new PatientNotFound(String.format("\nPatient %s with disease %s does not Exists.\n", patientID, diseaseName));
+        }
+
+        this.world.fatal(diseaseName, patientID);
+
     }
 
     public String showWorldSummary() {
 
-        return null;
+        return this.world.showWorldSummary();
 
     }
 
     public String showWorldSummaryDiseasesBreakup() {
 
-        return null;
+        return this.world.showWorldSummaryDiseasesBreakup();
 
     }
 
     public String showCountryBreakup(String diseaseName) {
 
-        return null;
+        return this.country.showCountryBreakup(diseaseName);
 
     }
 
     public String ShowStateBreakup(String diseaseName, String countryName) {
 
-        return null;
+        return this.state.ShowStateBreakup(diseaseName, countryName);
 
     }
 
