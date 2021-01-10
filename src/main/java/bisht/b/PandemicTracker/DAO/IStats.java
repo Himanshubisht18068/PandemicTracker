@@ -9,4 +9,6 @@ public interface IStats {
     void inActive();
 
     void cured();
+
+    void report();
 }

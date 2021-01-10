@@ -31,4 +31,10 @@ public class Stats implements IStats{
         ++this.curedCases;
         --this.activeCases;
     }
+
+    @Override
+    public void report() {
+        ++this.totalCases;
+        ++this.activeCases;
+    }
 }

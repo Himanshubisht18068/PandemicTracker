@@ -78,7 +78,7 @@ public class InMemoryDataBase implements IDataBase {
             this.mTableStateDiseaseStats.put(key, new Stats());
         }
 
-        this.mTableStateDiseaseStats.get(key).inActive();
+        this.mTableStateDiseaseStats.get(key).report();
 
     }
 
@@ -105,38 +105,84 @@ public class InMemoryDataBase implements IDataBase {
     @Override
     public void inActiveCountry(String diseaseName, String countryName) {
 
+        String key = String.join("__", diseaseName, countryName);
 
+        this.mTableCountryDiseaseStats.get(key).inActive();
 
     }
 
     @Override
     public String showCountryBreakup(String diseaseName) {
-        return null;
+
+        StringBuilder output = new StringBuilder();
+
+        for(Map.Entry<String, IStats> entrySet: this.mTableCountryDiseaseStats.entrySet()){
+
+            String[] str = entrySet.getKey().split("__");
+
+            if(str[0].equals(diseaseName)){
+
+                output.append(entrySet.getValue().getStats(str[1]));
+
+            }
+
+        }
+
+        return output.toString();
+
     }
 
     @Override
     public void fatalCountry(String diseaseName, String countryName) {
+
+        String key = String.join("__", diseaseName, countryName);
+
+        this.mTableCountryDiseaseStats.get(key).fatal();
 
     }
 
     @Override
     public void curedCountry(String diseaseName, String countryName) {
 
+        String key = String.join("__", diseaseName, countryName);
+
+        this.mTableCountryDiseaseStats.get(key).cured();
+
     }
 
     @Override
     public void reportCountry(String diseaseName, String countryName) {
 
+        String key = String.join("__", diseaseName, countryName);
+
+        if (!this.mTableCountryDiseaseStats.containsKey(key)) {
+            this.mTableCountryDiseaseStats.put(key, new Stats());
+        }
+
+        this.mTableCountryDiseaseStats.get(key).report();
+
     }
 
     @Override
     public String getWorldSummaryDiseasesBreakup() {
-        return null;
+
+        StringBuilder output = new StringBuilder();
+
+        for(Map.Entry<String, IStats> entrySet: this.mTableWorldDiseaseStats.entrySet()){
+
+            output.append(entrySet.getValue().getStats(entrySet.getKey()));
+
+        }
+
+        return output.toString();
+
     }
 
     @Override
     public String getWorldSummary() {
-        return null;
+
+        return this.worldStats.getStats("OverAll");
+
     }
 
     @Override
@@ -147,6 +193,11 @@ public class InMemoryDataBase implements IDataBase {
     @Override
     public void inActiveWorld(String diseaseName) {
 
+        this.worldStats.inActive();
+
+        this.mTableWorldDiseaseStats.get(diseaseName).inActive();
+
+
     }
 
     @Override
@@ -156,6 +207,10 @@ public class InMemoryDataBase implements IDataBase {
 
     @Override
     public void fatalWorld(String diseaseName) {
+
+        this.worldStats.fatal();
+
+        this.mTableWorldDiseaseStats.get(diseaseName).fatal();
 
     }
 
@@ -172,10 +227,22 @@ public class InMemoryDataBase implements IDataBase {
     @Override
     public void curedWorld(String diseaseName) {
 
+        this.worldStats.cured();
+
+        this.mTableWorldDiseaseStats.get(diseaseName).cured();
+
     }
 
     @Override
     public void reportWorld(String diseaseName) {
+
+        this.worldStats.report();
+
+        if (!this.mTableWorldDiseaseStats.containsKey(diseaseName)) {
+            this.mTableWorldDiseaseStats.put(diseaseName, new Stats());
+        }
+
+        this.mTableWorldDiseaseStats.get(diseaseName).report();
 
     }
 
