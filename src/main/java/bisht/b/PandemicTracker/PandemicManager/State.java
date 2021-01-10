@@ -11,4 +11,24 @@ public class State implements IState{
         //TDOD
         return null;
     }
+
+    @Override
+    public void report(String diseaseName, String countryName, String stateName) {
+
+    }
+
+    @Override
+    public void cured(String diseaseName, String countryName, String stateName) {
+
+    }
+
+    @Override
+    public void fatal(String diseaseName, String countryName, String stateName) {
+
+    }
+
+    @Override
+    public void inActive(String diseaseName, String countryName, String stateName) {
+
+    }
 }

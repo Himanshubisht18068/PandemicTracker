@@ -67,4 +67,29 @@ public class DataBaseManager implements IDataBaseManager {
     public String getWorldSummaryDiseasesBreakup() {
         return null;
     }
+
+    @Override
+    public void reportCountry(String diseaseName) {
+
+    }
+
+    @Override
+    public void curedCountry(String diseaseName) {
+
+    }
+
+    @Override
+    public void fatalCountry(String diseaseName) {
+
+    }
+
+    @Override
+    public String showCountryBreakup(String diseaseName) {
+        return null;
+    }
+
+    @Override
+    public void inActiveCountry(String diseaseName) {
+
+    }
 }

@@ -1,36 +1,53 @@
 package bisht.b.PandemicTracker.PandemicManager;
 
+import bisht.b.PandemicTracker.DataBaseManager.DataBaseManager;
+import bisht.b.PandemicTracker.DataBaseManager.IDataBaseManager;
+
 public class Country implements ICountry {
 
     private IState state;
+    private IDataBaseManager dataBaseManager;
 
     public Country(IState state) {
         this.state = state;
-    }
-
-    @Override
-    public String showCountryBreakup(String diseaseName) {
-        //TODO
-        return null;
+        this.dataBaseManager = new DataBaseManager();
     }
 
     @Override
     public void report(String diseaseName, String countryName, String stateName) {
-        //TODO
+
+        this.dataBaseManager.reportCountry(diseaseName);
+        this.state.report(diseaseName, countryName, stateName);
+
     }
 
     @Override
     public void cured(String diseaseName, String countryName, String stateName) {
-        //TODO
+
+        this.dataBaseManager.curedCountry(diseaseName);
+
+        this.state.cured(diseaseName, countryName, stateName);
     }
 
     @Override
-    public void fatal(String disease, String countryName, String stateName) {
-        //TODO
+    public void fatal(String diseaseName, String countryName, String stateName) {
+
+        this.dataBaseManager.fatalCountry(diseaseName);
+
+        this.state.fatal(diseaseName, countryName, stateName);
     }
 
     @Override
-    public void inActive(String disease, String countryName, String stateName) {
-        //TODO
+    public void inActive(String diseaseName, String countryName, String stateName) {
+
+        this.dataBaseManager.inActiveCountry(diseaseName);
+
+        this.state.inActive(diseaseName, countryName, stateName);
+
+    }
+
+    @Override
+    public String showCountryBreakup(String diseaseName) {
+        return this.dataBaseManager.showCountryBreakup(diseaseName);
     }
 }

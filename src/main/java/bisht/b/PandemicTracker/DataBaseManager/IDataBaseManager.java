@@ -28,4 +28,14 @@ public interface IDataBaseManager {
     String getWorldSummary();
 
     String getWorldSummaryDiseasesBreakup();
+
+    void reportCountry(String diseaseName);
+
+    void curedCountry(String diseaseName);
+
+    void fatalCountry(String diseaseName);
+
+    String showCountryBreakup(String diseaseName);
+
+    void inActiveCountry(String diseaseName);
 }
