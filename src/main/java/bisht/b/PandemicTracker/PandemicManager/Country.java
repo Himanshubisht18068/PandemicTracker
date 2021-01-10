@@ -16,7 +16,8 @@ public class Country implements ICountry {
     @Override
     public void report(String diseaseName, String countryName, String stateName) {
 
-        this.dataBaseManager.reportCountry(diseaseName);
+        this.dataBaseManager.reportCountry(diseaseName, countryName);
+
         this.state.report(diseaseName, countryName, stateName);
 
     }
@@ -24,7 +25,7 @@ public class Country implements ICountry {
     @Override
     public void cured(String diseaseName, String countryName, String stateName) {
 
-        this.dataBaseManager.curedCountry(diseaseName);
+        this.dataBaseManager.curedCountry(diseaseName, countryName);
 
         this.state.cured(diseaseName, countryName, stateName);
     }
@@ -32,7 +33,7 @@ public class Country implements ICountry {
     @Override
     public void fatal(String diseaseName, String countryName, String stateName) {
 
-        this.dataBaseManager.fatalCountry(diseaseName);
+        this.dataBaseManager.fatalCountry(diseaseName, countryName);
 
         this.state.fatal(diseaseName, countryName, stateName);
     }
@@ -40,7 +41,7 @@ public class Country implements ICountry {
     @Override
     public void inActive(String diseaseName, String countryName, String stateName) {
 
-        this.dataBaseManager.inActiveCountry(diseaseName);
+        this.dataBaseManager.inActiveCountry(diseaseName, countryName);
 
         this.state.inActive(diseaseName, countryName, stateName);
 

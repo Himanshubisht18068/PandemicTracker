@@ -4,13 +4,12 @@ import bisht.b.PandemicTracker.DAO.IRegionInfo;
 import bisht.b.PandemicTracker.DAO.IStats;
 import bisht.b.PandemicTracker.DAO.RegionInfo;
 import bisht.b.PandemicTracker.DAO.Stats;
-import bisht.b.PandemicTracker.PandemicManager.IState;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InMemoryDataBase implements IDataBase{
+public class InMemoryDataBase implements IDataBase {
 
     static InMemoryDataBase instance = null;
 
@@ -23,7 +22,7 @@ public class InMemoryDataBase implements IDataBase{
     private Map<String, List<String>> mPatientDiseaseList;
 
 
-    private InMemoryDataBase(){
+    private InMemoryDataBase() {
 
         this.worldStats = new Stats();
         this.mTableWorldDiseaseStats = new HashMap<>();
@@ -35,12 +34,12 @@ public class InMemoryDataBase implements IDataBase{
 
     }
 
-    public static InMemoryDataBase getInstance(){
+    public static InMemoryDataBase getInstance() {
 
-        if(instance == null){
+        if (instance == null) {
             instance = new InMemoryDataBase();
         }
-        return  instance;
+        return instance;
     }
 
     @Override
@@ -75,7 +74,7 @@ public class InMemoryDataBase implements IDataBase{
 
         String key = String.join("__", diseaseName, countryName, stateName);
 
-        if(!this.mTableStateDiseaseStats.containsKey(key)){
+        if (!this.mTableStateDiseaseStats.containsKey(key)) {
             this.mTableStateDiseaseStats.put(key, new Stats());
         }
 
@@ -85,11 +84,28 @@ public class InMemoryDataBase implements IDataBase{
 
     @Override
     public String showStateBreakup(String diseaseName, String countryName) {
-        return null;
+
+        StringBuilder output = new StringBuilder();
+
+        for(Map.Entry<String, IStats> entrySet: this.mTableStateDiseaseStats.entrySet()){
+
+            String[] str = entrySet.getKey().split("__");
+
+            if(str[0].equals(diseaseName) && str[1].equals(countryName)){
+
+                output.append(entrySet.getValue().getStats(str[2]));
+
+            }
+
+        }
+
+        return output.toString();
     }
 
     @Override
-    public void inActiveCountry(String diseaseName) {
+    public void inActiveCountry(String diseaseName, String countryName) {
+
+
 
     }
 
@@ -99,17 +115,17 @@ public class InMemoryDataBase implements IDataBase{
     }
 
     @Override
-    public void fatalCountry(String diseaseName) {
+    public void fatalCountry(String diseaseName, String countryName) {
 
     }
 
     @Override
-    public void curedCountry(String diseaseName) {
+    public void curedCountry(String diseaseName, String countryName) {
 
     }
 
     @Override
-    public void reportCountry(String diseaseName) {
+    public void reportCountry(String diseaseName, String countryName) {
 
     }
 

@@ -29,15 +29,15 @@ public interface IDataBaseManager {
 
     String getWorldSummaryDiseasesBreakup();
 
-    void reportCountry(String diseaseName);
+    void reportCountry(String diseaseName, String countryName);
 
-    void curedCountry(String diseaseName);
+    void curedCountry(String diseaseName, String countryName);
 
-    void fatalCountry(String diseaseName);
+    void fatalCountry(String diseaseName, String countryName);
 
     String showCountryBreakup(String diseaseName);
 
-    void inActiveCountry(String diseaseName);
+    void inActiveCountry(String diseaseName, String countryName);
 
     String showStateBreakup(String diseaseName, String countryName);
 

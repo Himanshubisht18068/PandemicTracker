@@ -98,23 +98,23 @@ public class DataBaseManager implements IDataBaseManager {
     }
 
     @Override
-    public void reportCountry(String diseaseName) {
+    public void reportCountry(String diseaseName, String countryName) {
 
-        this.inMemory.reportCountry(diseaseName);
-
-    }
-
-    @Override
-    public void curedCountry(String diseaseName) {
-
-        this.inMemory.curedCountry(diseaseName);
+        this.inMemory.reportCountry(diseaseName, countryName);
 
     }
 
     @Override
-    public void fatalCountry(String diseaseName) {
+    public void curedCountry(String diseaseName, String countryName) {
 
-        this.inMemory.fatalCountry(diseaseName);
+        this.inMemory.curedCountry(diseaseName, countryName);
+
+    }
+
+    @Override
+    public void fatalCountry(String diseaseName, String countryName) {
+
+        this.inMemory.fatalCountry(diseaseName, countryName);
 
     }
 
@@ -126,9 +126,9 @@ public class DataBaseManager implements IDataBaseManager {
     }
 
     @Override
-    public void inActiveCountry(String diseaseName) {
+    public void inActiveCountry(String diseaseName, String countryName) {
 
-        this.inMemory.inActiveCountry(diseaseName);
+        this.inMemory.inActiveCountry(diseaseName, countryName);
 
     }
 
