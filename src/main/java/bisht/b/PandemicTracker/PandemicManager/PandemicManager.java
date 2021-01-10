@@ -36,7 +36,7 @@ public class PandemicManager {
 
     private void savePatientDetails(String patientID, String diseaseName, String countryName, String stateName) throws PatientExistsWithThisDisease {
 
-        if (this.dataBaseManager.patientExists(patientID, diseaseName)){
+        if (this.dataBaseManager.patientExists(patientID, diseaseName)) {
             throw new PatientExistsWithThisDisease(String.format("\nPatient %s with disease %s is all ready reported.\n", patientID, diseaseName));
         }
 
@@ -46,7 +46,7 @@ public class PandemicManager {
 
     public void cured(String diseaseName, String patientID) throws PatientNotFound {
 
-        if(!this.dataBaseManager.patientExists(patientID, diseaseName)){
+        if (!this.dataBaseManager.patientExists(patientID, diseaseName)) {
             throw new PatientNotFound(String.format("\nPatient %s with disease %s does not Exists.\n", patientID, diseaseName));
         }
 
@@ -61,7 +61,7 @@ public class PandemicManager {
 
     public void fatal(String diseaseName, String patientID) {
 
-        if(!this.dataBaseManager.patientExists(patientID, diseaseName)){
+        if (!this.dataBaseManager.patientExists(patientID, diseaseName)) {
             throw new PatientNotFound(String.format("\nPatient %s with disease %s does not Exists.\n", patientID, diseaseName));
         }
 
@@ -85,10 +85,6 @@ public class PandemicManager {
 
         //Patient is dead, removed all this details
         this.dataBaseManager.deletePatientDetails(patientID);
-
-
-
-
 
     }
 

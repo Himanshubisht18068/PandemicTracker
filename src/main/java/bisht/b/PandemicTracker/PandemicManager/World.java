@@ -1,10 +1,7 @@
 package bisht.b.PandemicTracker.PandemicManager;
 
-import bisht.b.PandemicTracker.DAO.RegionInfo;
 import bisht.b.PandemicTracker.DataBaseManager.DataBaseManager;
 import bisht.b.PandemicTracker.DataBaseManager.IDataBaseManager;
-
-import java.util.List;
 
 public class World implements IWorld {
 

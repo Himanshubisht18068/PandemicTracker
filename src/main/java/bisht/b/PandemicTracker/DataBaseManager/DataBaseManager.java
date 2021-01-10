@@ -1,120 +1,169 @@
 package bisht.b.PandemicTracker.DataBaseManager;
 
 import bisht.b.PandemicTracker.DAO.RegionInfo;
+import bisht.b.PandemicTracker.DataBase.IDataBase;
+import bisht.b.PandemicTracker.DataBase.InMemoryDataBase;
 
 import java.util.List;
 
 public class DataBaseManager implements IDataBaseManager {
+
+    private IDataBase inMemory;
+
+    public DataBaseManager() {
+        this.inMemory = new InMemoryDataBase();
+    }
+
     @Override
     public boolean patientExists(String patientID, String diseaseName) {
-        return false;
+
+        return this.inMemory.patientExists(patientID, diseaseName);
+
     }
 
     @Override
     public void savePatientDetails(String patientID, String diseaseName, String countryName, String stateName) {
 
+        this.inMemory.savePatientDetails(patientID, diseaseName, countryName, stateName);
+
     }
 
     @Override
     public void reportWorld(String diseaseName) {
-        //TODO
+
+        this.inMemory.reportWorld(diseaseName);
+
     }
 
     @Override
     public void curedWorld(String diseaseName) {
-        //TODO
+
+        this.inMemory.curedWorld(diseaseName);
+
     }
 
     @Override
     public RegionInfo getPatientDetails(String patientID) {
-        //TODO
-        return null;
+
+        return this.inMemory.getPatientDetails(patientID);
+
     }
 
     @Override
     public void patientCured(String patientID, String diseaseName) {
-        //TODO
-        // remove disease from patient
+
+        this.inMemory.patientCured(patientID, diseaseName);
+
     }
 
     @Override
     public void fatalWorld(String diseaseName) {
-        //TODO
+
+        this.inMemory.fatalWorld(diseaseName);
+
     }
 
     @Override
     public List<String> getPatientDiseasesList(String patientID) {
-        //TODO
-        return null;
+
+        return this.inMemory.getPatientDiseasesList(patientID);
     }
 
     @Override
-    public void inActiveWorld(String disease) {
-        //TODO
+    public void inActiveWorld(String diseaseName) {
+
+        this.inMemory.inActiveWorld(diseaseName);
+
     }
 
     @Override
     public void deletePatientDetails(String patientID) {
-        //TODO
+
+        this.inMemory.deletePatientDetails(patientID);
+
     }
 
     @Override
     public String getWorldSummary() {
-        return null;
+
+        return this.inMemory.getWorldSummary();
+
     }
 
     @Override
     public String getWorldSummaryDiseasesBreakup() {
-        return null;
+
+        return this.inMemory.getWorldSummaryDiseasesBreakup();
+
     }
 
     @Override
     public void reportCountry(String diseaseName) {
+
+        this.inMemory.reportCountry(diseaseName);
 
     }
 
     @Override
     public void curedCountry(String diseaseName) {
 
+        this.inMemory.curedCountry(diseaseName);
+
     }
 
     @Override
     public void fatalCountry(String diseaseName) {
 
+        this.inMemory.fatalCountry(diseaseName);
+
     }
 
     @Override
     public String showCountryBreakup(String diseaseName) {
-        return null;
+
+        return this.inMemory.showCountryBreakup(diseaseName);
+
     }
 
     @Override
     public void inActiveCountry(String diseaseName) {
 
+        this.inMemory.inActiveCountry(diseaseName);
+
     }
 
     @Override
     public String showStateBreakup(String diseaseName, String countryName) {
-        return null;
+
+        return this.inMemory.showStateBreakup(diseaseName, countryName);
+
     }
 
     @Override
     public void reportState(String diseaseName, String countryName, String stateName) {
+
+        this.inMemory.reportState(diseaseName, countryName, stateName);
 
     }
 
     @Override
     public void curedState(String diseaseName, String countryName, String stateName) {
 
+        this.inMemory.curedState(diseaseName, countryName, stateName);
+
     }
 
     @Override
     public void inActiveState(String diseaseName, String countryName, String stateName) {
 
+        this.inMemory.inActiveState(diseaseName, countryName, stateName);
+
     }
 
     @Override
     public void fatalState(String diseaseName, String countryName, String stateName) {
+
+        this.inMemory.fatalState(diseaseName, countryName, stateName);
 
     }
 }
