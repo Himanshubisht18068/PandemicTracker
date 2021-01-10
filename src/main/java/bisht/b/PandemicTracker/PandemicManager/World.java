@@ -44,37 +44,39 @@ public class World implements IWorld {
         RegionInfo region = this.dataBaseManager.getPatientDetails(patientID);
 
         List<String> diseases = this.dataBaseManager.getPatientDiseasesList(patientID);
-        for(String disease: diseases){
+        for (String disease : diseases) {
 
-            if(disease.equals(diseaseName)){
+            if (disease.equals(diseaseName)) {
 
                 this.dataBaseManager.fatalWorld(diseaseName);
 
                 this.country.fatal(disease, region.getCountryName(), region.getStateName());
 
-            }
-            else{
+            } else {
 
                 this.dataBaseManager.inActiveWorld(disease);
 
-                this.country.inActive(disease, region.getCountryName(),region.getStateName());
+                this.country.inActive(disease, region.getCountryName(), region.getStateName());
 
             }
 
         }
 
+        //Patient is dead, removed all this details
         this.dataBaseManager.deletePatientDetails(patientID);
     }
 
     @Override
     public String showWorldSummary() {
-        //TODO
-        return null;
+
+        return this.dataBaseManager.getWorldSummary();
+
     }
 
     @Override
     public String showWorldSummaryDiseasesBreakup() {
-        //TODO
-        return null;
+
+        return this.dataBaseManager.getWorldSummaryDiseasesBreakup();
+
     }
 }

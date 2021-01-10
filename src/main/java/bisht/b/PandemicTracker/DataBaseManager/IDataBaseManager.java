@@ -24,4 +24,8 @@ public interface IDataBaseManager {
     void inActiveWorld(String disease);
 
     void deletePatientDetails(String patientID);
+
+    String getWorldSummary();
+
+    String getWorldSummaryDiseasesBreakup();
 }

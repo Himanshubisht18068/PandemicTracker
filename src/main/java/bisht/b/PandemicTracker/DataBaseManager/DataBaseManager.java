@@ -57,4 +57,14 @@ public class DataBaseManager implements IDataBaseManager {
     public void deletePatientDetails(String patientID) {
         //TODO
     }
+
+    @Override
+    public String getWorldSummary() {
+        return null;
+    }
+
+    @Override
+    public String getWorldSummaryDiseasesBreakup() {
+        return null;
+    }
 }
