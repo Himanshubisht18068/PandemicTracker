@@ -5,6 +5,21 @@ import bisht.b.PandemicTracker.DAO.RegionInfo;
 import java.util.List;
 
 public class InMemoryDataBase implements IDataBase{
+
+    static InMemoryDataBase instance = null;
+
+    private InMemoryDataBase(){
+
+    }
+
+    public static InMemoryDataBase getInstance(){
+
+        if(instance == null){
+            instance = new InMemoryDataBase();
+        }
+        return  instance;
+    }
+
     @Override
     public void fatalState(String diseaseName, String countryName, String stateName) {
 

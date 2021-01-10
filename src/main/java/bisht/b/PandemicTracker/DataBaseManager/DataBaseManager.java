@@ -11,7 +11,7 @@ public class DataBaseManager implements IDataBaseManager {
     private IDataBase inMemory;
 
     public DataBaseManager() {
-        this.inMemory = new InMemoryDataBase();
+        this.inMemory = InMemoryDataBase.getInstance();
     }
 
     @Override
