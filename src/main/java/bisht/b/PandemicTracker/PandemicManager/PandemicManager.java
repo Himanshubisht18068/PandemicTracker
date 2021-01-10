@@ -90,11 +90,15 @@ public class PandemicManager {
 
     public String showWorldSummary() {
 
+        System.out.println("showWorldSummary() => ");
+
         return this.world.showWorldSummary();
 
     }
 
     public String showWorldSummaryDiseasesBreakup() {
+
+        System.out.println("showWorldSummaryDiseasesBreakup() => ");
 
         return this.world.showWorldSummaryDiseasesBreakup();
 
@@ -102,11 +106,15 @@ public class PandemicManager {
 
     public String showCountryBreakup(String diseaseName) {
 
+        System.out.println(String.format("showCountryBreakup(%s) => ",diseaseName));
+
         return this.country.showCountryBreakup(diseaseName);
 
     }
 
     public String showStateBreakup(String diseaseName, String countryName) {
+
+        System.out.println(String.format("showStateBreakup(%s, %s) => ",diseaseName, countryName));
 
         return this.state.showStateBreakup(diseaseName, countryName);
 
