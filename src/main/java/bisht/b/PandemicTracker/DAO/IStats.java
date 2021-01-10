@@ -4,4 +4,9 @@ public interface IStats {
 
     public String getStats(String name);
 
+    void fatal();
+
+    void inActive();
+
+    void cured();
 }

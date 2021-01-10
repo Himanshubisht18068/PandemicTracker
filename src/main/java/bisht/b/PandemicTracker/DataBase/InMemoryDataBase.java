@@ -1,14 +1,37 @@
 package bisht.b.PandemicTracker.DataBase;
 
+import bisht.b.PandemicTracker.DAO.IRegionInfo;
+import bisht.b.PandemicTracker.DAO.IStats;
 import bisht.b.PandemicTracker.DAO.RegionInfo;
+import bisht.b.PandemicTracker.DAO.Stats;
+import bisht.b.PandemicTracker.PandemicManager.IState;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InMemoryDataBase implements IDataBase{
 
     static InMemoryDataBase instance = null;
 
+    private IStats worldStats;
+    private Map<String, IStats> mTableWorldDiseaseStats;
+    private Map<String, IStats> mTableCountryDiseaseStats;
+    private Map<String, IStats> mTableStateDiseaseStats;
+
+    private Map<String, IRegionInfo> mPatientAddress;
+    private Map<String, List<String>> mPatientDiseaseList;
+
+
     private InMemoryDataBase(){
+
+        this.worldStats = new Stats();
+        this.mTableWorldDiseaseStats = new HashMap<>();
+        this.mTableCountryDiseaseStats = new HashMap<>();
+        this.mTableStateDiseaseStats = new HashMap<>();
+
+        this.mPatientAddress = new HashMap<>();
+        this.mPatientDiseaseList = new HashMap<>();
 
     }
 
@@ -23,20 +46,40 @@ public class InMemoryDataBase implements IDataBase{
     @Override
     public void fatalState(String diseaseName, String countryName, String stateName) {
 
+        String key = String.join("__", diseaseName, countryName, stateName);
+
+        this.mTableStateDiseaseStats.get(key).fatal();
+
     }
 
     @Override
     public void inActiveState(String diseaseName, String countryName, String stateName) {
+
+        String key = String.join("__", diseaseName, countryName, stateName);
+
+        this.mTableStateDiseaseStats.get(key).inActive();
 
     }
 
     @Override
     public void curedState(String diseaseName, String countryName, String stateName) {
 
+        String key = String.join("__", diseaseName, countryName, stateName);
+
+        this.mTableStateDiseaseStats.get(key).cured();
+
     }
 
     @Override
     public void reportState(String diseaseName, String countryName, String stateName) {
+
+        String key = String.join("__", diseaseName, countryName, stateName);
+
+        if(!this.mTableStateDiseaseStats.containsKey(key)){
+            this.mTableStateDiseaseStats.put(key, new Stats());
+        }
+
+        this.mTableStateDiseaseStats.get(key).inActive();
 
     }
 
