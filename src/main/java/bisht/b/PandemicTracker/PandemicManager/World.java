@@ -7,4 +7,9 @@ public class World implements IWorld {
     public World(ICountry country) {
         this.country = country;
     }
+
+    @Override
+    public void report(String diseaseName, String countryName, String stateName) {
+        //TODO
+    }
 }
