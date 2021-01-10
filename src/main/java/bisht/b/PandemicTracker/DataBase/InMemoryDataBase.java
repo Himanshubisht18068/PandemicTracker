@@ -13,13 +13,13 @@ public class InMemoryDataBase implements IDataBase {
 
     static InMemoryDataBase instance = null;
 
-    private IStats worldStats;
-    private Map<String, IStats> mTableWorldDiseaseStats;
-    private Map<String, IStats> mTableCountryDiseaseStats;
-    private Map<String, IStats> mTableStateDiseaseStats;
+    private final IStats worldStats;
+    private final Map<String, IStats> mTableWorldDiseaseStats;
+    private final Map<String, IStats> mTableCountryDiseaseStats;
+    private final Map<String, IStats> mTableStateDiseaseStats;
 
-    private Map<String, RegionInfo> mPatientAddress;
-    private Map<String, List<String>> mPatientDiseaseList;
+    private final Map<String, RegionInfo> mPatientAddress;
+    private final Map<String, List<String>> mPatientDiseaseList;
 
 
     private InMemoryDataBase() {
@@ -230,15 +230,33 @@ public class InMemoryDataBase implements IDataBase {
     @Override
     public void deletePatientDetails(String patientID) {
 
+        this.mPatientDiseaseList.remove(patientID);
+
+        this.mPatientAddress.remove(patientID);
+
     }
 
     @Override
     public List<String> getPatientDiseasesList(String patientID) {
-        return null;
+
+        return this.mPatientDiseaseList.get(patientID);
+
     }
 
     @Override
     public void patientCured(String patientID, String diseaseName) {
+
+        List<String> diseases = this.mPatientDiseaseList.get(patientID);
+
+        diseases.remove(diseaseName);
+
+        if (0 == diseases.size()){
+
+            this.mPatientDiseaseList.remove(patientID);
+
+            this.mPatientAddress.remove(patientID);
+
+        }
 
     }
 
@@ -256,7 +274,7 @@ public class InMemoryDataBase implements IDataBase {
 
         if (!this.mPatientDiseaseList.containsKey(patientID)) {
 
-            this.mPatientDiseaseList.put(patientID, new LinkedList<String>());
+            this.mPatientDiseaseList.put(patientID, new LinkedList<>());
 
         }
 
