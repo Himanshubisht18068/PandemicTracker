@@ -1,7 +1,7 @@
 package bisht.b.PandemicTracker.PandemicManager;
 
 public interface IState {
-    String ShowStateBreakup(String diseaseName, String countryName);
+    String showStateBreakup(String diseaseName, String countryName);
 
     void report(String diseaseName, String countryName, String stateName);
 

@@ -79,9 +79,9 @@ public class PandemicManager {
 
     }
 
-    public String ShowStateBreakup(String diseaseName, String countryName) {
+    public String showStateBreakup(String diseaseName, String countryName) {
 
-        return this.state.ShowStateBreakup(diseaseName, countryName);
+        return this.state.showStateBreakup(diseaseName, countryName);
 
     }
 

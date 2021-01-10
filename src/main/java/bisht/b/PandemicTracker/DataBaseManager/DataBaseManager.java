@@ -92,4 +92,29 @@ public class DataBaseManager implements IDataBaseManager {
     public void inActiveCountry(String diseaseName) {
 
     }
+
+    @Override
+    public String showStateBreakup(String diseaseName, String countryName) {
+        return null;
+    }
+
+    @Override
+    public void reportState(String diseaseName, String countryName, String stateName) {
+
+    }
+
+    @Override
+    public void curedState(String diseaseName, String countryName, String stateName) {
+
+    }
+
+    @Override
+    public void inActiveState(String diseaseName, String countryName, String stateName) {
+
+    }
+
+    @Override
+    public void fatalState(String diseaseName, String countryName, String stateName) {
+
+    }
 }

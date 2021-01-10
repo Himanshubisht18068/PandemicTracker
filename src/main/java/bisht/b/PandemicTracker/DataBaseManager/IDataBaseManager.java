@@ -38,4 +38,14 @@ public interface IDataBaseManager {
     String showCountryBreakup(String diseaseName);
 
     void inActiveCountry(String diseaseName);
+
+    String showStateBreakup(String diseaseName, String countryName);
+
+    void reportState(String diseaseName, String countryName, String stateName);
+
+    void curedState(String diseaseName, String countryName, String stateName);
+
+    void inActiveState(String diseaseName, String countryName, String stateName);
+
+    void fatalState(String diseaseName, String countryName, String stateName);
 }
