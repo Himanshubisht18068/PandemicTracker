@@ -12,7 +12,9 @@ public class Stats implements IStats{
 
     @Override
     public String getStats(String name) {
-        return null;
+
+        return String.format("\n%s:\n\t1. TotalCases: %s\n\t2. CuredCases: %s\n\t3. FatalCases: %s\n\t4. ActiveCases: %s\n\n", name, this.totalCases, this.curedCases, this.fatalCases, this.activeCases);
+
     }
 
     @Override
